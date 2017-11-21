@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Create an Activity</title>
+	<link rel="stylesheet" href="">
+	  <style>
+    #erMess {
+      color: red;
+    }
+  	</style>
+  
+</head>
+<body>
+	<h1>Welcome to the Dojo Activity Center</h1>
+	<hr>
+
+
+	<div>
+        {% if messages %}
+	        {% for message in messages %}
+		        <p id = "erMess">{{message}}</p>
+	        {% endfor %}
+        {% endif %}
+        <h2>Create an Activity!</h2>
+        <form action="/create_activity" method="post">{% csrf_token %}
+
+        <p>Title: <input type="text" name="title"></p>
+        <p>Date: <input type="date" name="date"></p>
+        <p>Time: <input type="time" name="time"></p>
+        <p>Duration: <input type="number" name="duration">  <select name="duration_type">
+        <option value="Hours">Hours</option>    
+        <option value="Minutes">Minutes</option>    
+        <option value="Days">Days</option>    
+        </select> </p>
+        <p>Description:  <textarea name="description" cols="30" rows="5"></textarea></p>
+        <br>
+        <input type="submit" value="Create Activity" >
+
+        </form>
+        <br>
+        <a href="/success"><button>Home</button></a> 
+        <a href="/logout"><button>Logout</button></a>
+      </div>
+</body>
+</html>

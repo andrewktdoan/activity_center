@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Dashboard</title>
+	<link rel="stylesheet" href="">
+	<style>
+		.activitieshead{
+
+			margin-right: 100px;
+			border: 1px solid black;
+			width: 200px;
+		}.activities{
+			text-align: center;
+			margin-right: 100px;
+			width: 200px;
+		}
+		}.joint_leave{
+				text-align: center;
+				margin-right: 100px;
+				width: 200px;
+			}
+		
+
+
+	</style>
+</head>
+<body>
+	<h1>Welcome to the Dojo Activity Center</h1>
+	<hr>
+	<h3>Welcome <em>{{user.first_name}} {{user.last_name}}</em>! Here are all the current activities</h3>
+
+	<br>
+		{% if messages %}
+	        {% for message in messages%}
+	          <h3 id="erMess">{{message}}</h3>
+	        {% endfor %}
+      	{% endif %}
+	<div>
+        <table>
+            <tr>
+                <th class="activitieshead">Activity</th>
+                <th class="activitieshead">Date and Time</th>
+                <th class="activitieshead">Duration</th>
+                <th class="activitieshead">Event Coodinator</th>
+                <th class="activitieshead">Number of Participants</th>
+                <th class="activitieshead">Actions</th>
+            </tr>
+            {% for activity in activities %}
+            <tr>
+                <td><a href="/activity/{{activity.id}}">{{activity.title}}</a></td>
+                <td>{{activity.date}} @ {{activity.time}}</td>
+                <td class="activities">{{activity.duration}} {{activity.duration_type}}</td>
+                <td class="activities">{{activity.creator.first_name}}</td>
+                {% if activity.qty_participants == null %}
+               		<td class="activities">0</td>
+                {% endif %}
+                {% if activity.qty_participants != null %}
+               		 <td class="activities">{{activity.qty_participants.count}}</td>
+                {% endif %}
+                {% if activity.creator == user %}
+               	 <td><a href="/delete/{{activity.id}}">Delete</a></td>
+                {% endif %}
+                {% if activity.creator != user %}
+                	<td class="join_leave"><a href="/join/{{activity.id}}">Join</a></td>
+                {% endif %}
+                {% if activity.creator != user %}
+                	<td class="join_leave"><a href="/leave/{{activity.id}}">Leave</a></td>
+                {% endif %}
+            </tr>
+            {% endfor %}
+        </table>
+        <br>
+        <a href="/new_activity"><button>Add new Activity!</button></a>
+        <a href="/logout"><button>Logout</button></a>
+      </div>
+</body>
+</html>

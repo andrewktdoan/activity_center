@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>{{activity.title}}</title>
+	<link rel="stylesheet" href="">
+</head>
+<body>
+	<h1>Welcome to the Dojo Activity Center</h1>
+	<hr>
+	 <div>
+        <h2>{{activity.title}}</h2>
+        <h3>Event Coordinator: <em>{{activity.creator.first_name}} {{activity.creator.last_name}}</em></h3>
+        <h4>Description:</h4>
+        <p>{{activity.description}}</p>
+        <h4>Participants:</h4>
+        {% for activity in activity.qty_participants.all %}
+        <p>{{activity.first_name}} {{activity.last_name}}</p>
+        {% endfor %}
+      </div>
+	<br>
+    <a href="/success"><button>Home</button></a> 
+    <a href="/logout"><button>Logout</button></a>
+</body>
+</html>
